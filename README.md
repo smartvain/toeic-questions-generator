@@ -2,6 +2,11 @@
 
 AIを活用してTOEIC形式の問題を自動生成するWebアプリケーションです。
 
+<img width="1050" height="513" alt="スクリーンショット 2026-01-12 111546" src="https://github.com/user-attachments/assets/7b8c8bb2-6248-4ffd-90de-49f130476134" />
+
+<img width="1038" height="864" alt="スクリーンショット 2026-01-12 111600" src="https://github.com/user-attachments/assets/fc12b6fb-9eb0-4a7f-ae49-b6c08bdc45dd" />
+
+
 ## 概要
 
 Dify AIを使用して、指定したレベルに応じたTOEIC形式の問題を生成します。生成された問題に回答し、正誤判定と解説を確認することができます。
