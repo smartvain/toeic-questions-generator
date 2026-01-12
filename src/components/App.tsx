@@ -49,6 +49,13 @@ export function App() {
     }
   }
 
+  const handleNextQuestion = () => {
+    setQuestion(null)
+    setSelectedAnswer(null)
+    setIsAnswered(false)
+    setShowExplanation(false)
+  }
+
   const isCorrect = selectedAnswer === question?.answer
 
   return (
@@ -58,57 +65,59 @@ export function App() {
           TOEIC Question Generator
         </Typography>
 
-        <Paper elevation={0} sx={{ p: 3, bgcolor: 'background.paper' }}>
-          <Typography variant="subtitle1" gutterBottom>
-            Question Level
-          </Typography>
-          <FormControl component="fieldset">
-            <RadioGroup
-              value={selectedLevel}
-              onChange={(e) => setSelectedLevel(e.target.value)}
-            >
-              <FormControlLabel
-                value="500"
-                control={<Radio />}
-                label="500 point level"
-              />
-              <FormControlLabel
-                value="600"
-                control={<Radio />}
-                label="600 point level"
-              />
-              <FormControlLabel
-                value="700"
-                control={<Radio />}
-                label="700 point level"
-              />
-              <FormControlLabel
-                value="800"
-                control={<Radio />}
-                label="800 point level"
-              />
-              <FormControlLabel
-                value="900"
-                control={<Radio />}
-                label="900 point level"
-              />
-            </RadioGroup>
-          </FormControl>
+        {!question && (
+          <Paper elevation={0} sx={{ p: 3, bgcolor: 'background.paper' }}>
+            <Typography variant="subtitle1" gutterBottom>
+              Question Level
+            </Typography>
+            <FormControl component="fieldset">
+              <RadioGroup
+                value={selectedLevel}
+                onChange={(e) => setSelectedLevel(e.target.value)}
+              >
+                <FormControlLabel
+                  value="500"
+                  control={<Radio />}
+                  label="500 point level"
+                />
+                <FormControlLabel
+                  value="600"
+                  control={<Radio />}
+                  label="600 point level"
+                />
+                <FormControlLabel
+                  value="700"
+                  control={<Radio />}
+                  label="700 point level"
+                />
+                <FormControlLabel
+                  value="800"
+                  control={<Radio />}
+                  label="800 point level"
+                />
+                <FormControlLabel
+                  value="900"
+                  control={<Radio />}
+                  label="900 point level"
+                />
+              </RadioGroup>
+            </FormControl>
 
-          <Box sx={{ mt: 3 }}>
-            <Button
-              variant="contained"
-              fullWidth
-              onClick={handleGenerateQuestion}
-              disabled={loading}
-            >
-              {loading ? 'Generating...' : 'Generate Question'}
-            </Button>
-          </Box>
-        </Paper>
+            <Box sx={{ mt: 3 }}>
+              <Button
+                variant="contained"
+                fullWidth
+                onClick={handleGenerateQuestion}
+                disabled={loading}
+              >
+                {loading ? 'Generating...' : 'Generate Question'}
+              </Button>
+            </Box>
+          </Paper>
+        )}
 
         {question && (
-          <Paper elevation={0} sx={{ mt: 4, p: 3, bgcolor: 'background.paper' }}>
+          <Paper elevation={0} sx={{ p: 3, bgcolor: 'background.paper' }}>
             <Typography variant="h6" gutterBottom>
               Question
             </Typography>
@@ -196,6 +205,15 @@ export function App() {
                     </Typography>
                   </Paper>
                 </Collapse>
+
+                <Button
+                  variant="contained"
+                  fullWidth
+                  onClick={handleNextQuestion}
+                  sx={{ mt: 3 }}
+                >
+                  Next Question
+                </Button>
               </Box>
             )}
           </Paper>
