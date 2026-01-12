@@ -7,7 +7,20 @@ export async function POST(req: NextRequest) {
   try {
     const url = `${process.env.DIFY_API_BASE_URL}${DIFY_API_ENDPOINT.completionMessages}`
 
-    const query = `Randomize one toeic question. Also provide a choice. Don't tell me the answer yet. Question level is ${level} point.`
+    const query = `Generate one TOEIC question at ${level} point level.
+
+Return ONLY a valid JSON object in this exact format (no markdown, no code blocks):
+{
+  "question": "The question text here",
+  "choices": {
+    "A": "First choice",
+    "B": "Second choice",
+    "C": "Third choice",
+    "D": "Fourth choice"
+  },
+  "answer": "A",
+  "explanation": "Explanation of why this answer is correct in Japanese"
+}`
 
     const body = {
       inputs: {
@@ -31,7 +44,16 @@ export async function POST(req: NextRequest) {
     }
 
     const data = await response.json()
-    return NextResponse.json(data)
+
+    // Parse the JSON from Dify's answer field
+    const answerText = data.answer || ''
+    const jsonMatch = answerText.match(/\{[\s\S]*\}/)
+    if (jsonMatch) {
+      const questionData = JSON.parse(jsonMatch[0])
+      return NextResponse.json({ question: questionData })
+    }
+
+    return NextResponse.json({ error: 'Failed to parse question' }, { status: 500 })
   } catch (error) {
     console.error(
       `Internal server error: ${API_ENDPOINT.completionMessages} route`,

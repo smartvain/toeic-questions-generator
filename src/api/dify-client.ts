@@ -2,7 +2,7 @@ import { API_ENDPOINT } from '@/constants/endpoints'
 
 export class DifyClient {
   static async generateToeicQuestion({ level }: { level: string }) {
-    const url = `${process.env.NEXT_PUBLIC_API_URL}${API_ENDPOINT.completionMessages}`
+    const url = API_ENDPOINT.completionMessages
 
     try {
       const response = await fetch(url, {
